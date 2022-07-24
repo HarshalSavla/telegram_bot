@@ -78,19 +78,19 @@ async def main(phone):
     limit = 100
     all_messages = []
     total_messages = 0
-    total_count_limit = 1000
+    total_count_limit = 100
     todays_date = datetime.date(datetime.now())
     messages_date = datetime.date(datetime.now())
     notify = False
     open_slot_keywords = {"open", "open slots", "bulk", "bulk open", "slots open"}
     start_time = int(time.time())
 
-    while True:
+    while int(time.time()) - start_time < 60 :
         print("Current Offset ID is:", offset_id, "; Total Messages:", total_messages)
         history = await client(GetHistoryRequest(
             peer=my_channel,
             offset_id=offset_id,
-            offset_date=None,
+            offset_date=start_time,
             add_offset=0,
             limit=limit,
             max_id=0,
